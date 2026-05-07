@@ -1,0 +1,38 @@
+namespace: demo-microservices
+
+frontend:
+  name: frontend
+  replicas: 1
+  image: nginx:alpine
+  port: 80
+  serviceType: NodePort   
+
+backend:
+  name: backend
+  replicas: 2
+  image: hashicorp/http-echo:0.2.3
+  message: "Backend with Config + Secret"
+
+auth:
+  name: auth
+  replicas: 1
+  image: hashicorp/http-echo
+  message: "Auth Service OK"
+  port: 5678
+
+redis:
+  name: redis
+  replicas: 1
+  image: redis:alpine
+  port: 6379
+
+configMap:
+  name: app-config
+
+secret:
+  name: app-secret
+
+ingress:
+  name: demo-ingress
+  className: nginx
+  host: demo.local
