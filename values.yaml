@@ -9,7 +9,7 @@ frontend:
 
 backend:
   name: backend
-  replicas: 2
+  replicas: 3
   image: hashicorp/http-echo:0.2.3
   message: "Backend with Config + Secret"
 
