@@ -1,21 +1,26 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
+
 metadata:
-  name: {{ .Values.ingress.name }}
-  namespace: {{ .Values.namespace }}
+  name: demo-ingress
+  namespace: demo-microservices
+
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+
 spec:
-  ingressClassName: {{ .Values.ingress.className }}
+  ingressClassName: nginx
+
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: demo.local
       http:
         paths:
+
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.frontend.name }}
+                name: frontend
                 port:
                   number: 80
 
@@ -23,7 +28,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.backend.name }}
+                name: backend
                 port:
                   number: 80
 
@@ -31,6 +36,14 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.auth.name }}
+                name: auth
+                port:
+                  number: 80
+
+          - path: /portfolio
+            pathType: Prefix
+            backend:
+              service:
+                name: portfolio
                 port:
                   number: 80
